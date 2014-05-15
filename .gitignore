@@ -1,0 +1,14 @@
+Battlezone/bin/Textures/Buttons/
+Battlezone/bin/Textures/Interface/
+Battlezone/bin/Animations/
+Battlezone/bin/Textures/
+
+Battlezone/bin/*.dll
+Battlezone/bin/*.pdb
+Battlezone/bin/*.txt
+Battlezone/bin/*.xml
+Battlezone/bin/*.config
+Battlezone/bin/*.manifest
+Battlezone/obj/
+HellionEngine/obj/
+HellionEngine/bin/
