@@ -60,6 +60,10 @@ Namespace Support
             Return New Vector(First.X / Second.X, First.Y / Second.Y)
         End Operator
 
+        Public Shared Operator /(First As Vector, Second As Integer) As Vector
+            Return New Vector(First.X / Second, First.Y / Second)
+        End Operator
+
         Public Shared Operator *(First As Vector, Second As Vector) As Vector
             Return New Vector(First.X * Second.X, First.Y * Second.Y)
         End Operator

@@ -22,7 +22,7 @@
             End While
 
 #If DEBUG Then
-            HellionEngine.Logging.Write("EngineObject.vb [EngineObjectInternal-Cleanup]: Found " + LiveEngineObjectCount.ToString() + " total live EngineObject instance.")
+            HellionEngine.Logging.Write("EngineObject.vb [EngineObjectInternal-Cleanup]: Found " + LiveEngineObjectCount.ToString() + " total live EngineObject instances.")
 #End If
         End Sub
     End Module
@@ -48,6 +48,7 @@
             Me.Scale = New HellionEngine.Support.Vector(1, 1)
             Me.RotationCenter = New HellionEngine.Support.Vector(1, 1)
             Me.Rotation = New HellionEngine.Support.Rotation
+            Me.Velocity = New HellionEngine.Support.Vector(0.0, 0.0)
             Me.Color = New HellionEngine.Support.Color(255, 255, 255, 255)
             Me.Visible = True
 
@@ -134,6 +135,12 @@
             End Set
         End Property
 
+        Public Overridable ReadOnly Property Center() As HellionEngine.Support.Vector
+            Get
+                Return New HellionEngine.Support.Vector(Me.Position.X + ((Me.BoundingBox.Right - Me.BoundingBox.Left) / 2), Me.Position.Y + ((Me.BoundingBox.Bottom - Me.BoundingBox.Top) / 2))
+            End Get
+        End Property
+
         Public Overridable Property BoundingBox() As HellionEngine.Support.Rectangle
             Get
                 Return New HellionEngine.Support.Rectangle(Me.Position.X, Me.Position.Y, Me.Dimensions.X, Me.Dimensions.Y)
@@ -151,6 +158,15 @@
             End Get
             Set(value As Single)
 
+            End Set
+        End Property
+
+        Public Overridable Property Position() As HellionEngine.Support.Vector
+            Get
+                Return Me.InternalPosition
+            End Get
+            Set(value As HellionEngine.Support.Vector)
+                Me.InternalPosition = value
             End Set
         End Property
 
@@ -210,16 +226,30 @@
             End If
         End Sub
 
+        Public Overridable Sub OnPhysicsUpdate(DeltaTimeSeconds As Single) Implements Physics.PhysicalObject.OnUpdate
+
+        End Sub
+
+        Public Overridable Function TestCollision(Other As EngineObject) As Boolean Implements PhysicalObject.TestCollision
+            Return False
+        End Function
+
         REM Raisable Events
         Public Event MousedOver(MousePosition As HellionEngine.Support.Vector)
 
         REM Unused at this level
         Public Property RenderSystem As RenderLayerSystem Implements RenderedObject.RenderSystem
         Public Property Color As Support.Color Implements RenderedObject.Color
-        Public Property Position As Support.Vector Implements RenderedObject.Position
+        Public Property InternalPosition As Support.Vector Implements RenderedObject.Position
         Public Property Rotation As Support.Rotation Implements RenderedObject.Rotation
         Public Property Scale As Support.Vector Implements RenderedObject.Scale
         Public Property RotationCenter As Support.Vector Implements RenderedObject.RotationCenter
         Public Property Visible As Boolean Implements RenderedObject.Visible
+
+        Public Property Velocity As Support.Vector Implements PhysicalObject.Velocity
+
+        Public Property Mass As Single Implements PhysicalObject.Mass
+
+        Public Property RotationVelocity As Single Implements PhysicalObject.RotationVelocity
     End Class
 End Namespace

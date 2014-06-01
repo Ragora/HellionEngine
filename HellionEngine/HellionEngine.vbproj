@@ -81,7 +81,10 @@
     <Compile Include="Code\Core\DisposableObject.vb" />
     <Compile Include="Code\Game\AnimatedSprite.vb" />
     <Compile Include="Code\Game\Button.vb" />
+    <Compile Include="Code\Game\TracerProjectile.vb" />
     <Compile Include="Code\Game\GameObject.vb" />
+    <Compile Include="Code\Game\HoverObject.vb" />
+    <Compile Include="Code\Game\HoverTank.vb" />
     <Compile Include="Code\Game\Sprite.vb" />
     <Compile Include="Code\Input.vb" />
     <Compile Include="Code\Interaction.vb" />

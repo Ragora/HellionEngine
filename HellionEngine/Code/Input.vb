@@ -58,6 +58,34 @@ Public Module Input
         Y = SlimDX.DirectInput.Key.Y
         Z = SlimDX.DirectInput.Key.Z
         Enter = SlimDX.DirectInput.Key.Return
+        Escape = SlimDX.DirectInput.Key.Escape
+        NumpadPlus = SlimDX.DirectInput.Key.NumberPadPlus
+        NumpadMinus = SlimDX.DirectInput.Key.NumberPadMinus
+        ArrowUp = SlimDX.DirectInput.Key.UpArrow
+        ArrowDown = SlimDX.DirectInput.Key.DownArrow
+        ArrowRight = SlimDX.DirectInput.Key.RightArrow
+        ArrowLeft = SlimDX.DirectInput.Key.LeftArrow
+
+        F12 = SlimDX.DirectInput.Key.F12
+        F11 = SlimDX.DirectInput.Key.F11
+        F10 = SlimDX.DirectInput.Key.F10
+        F9 = SlimDX.DirectInput.Key.F9
+        F8 = SlimDX.DirectInput.Key.F8
+        F7 = SlimDX.DirectInput.Key.F7
+        F6 = SlimDX.DirectInput.Key.F6
+        F5 = SlimDX.DirectInput.Key.F5
+        F4 = SlimDX.DirectInput.Key.F4
+        F3 = SlimDX.DirectInput.Key.F3
+        F2 = SlimDX.DirectInput.Key.F2
+        F1 = SlimDX.DirectInput.Key.F1
+
+        Space = SlimDX.DirectInput.Key.Space
+
+        ShiftLeft = SlimDX.DirectInput.Key.LeftShift
+        ShiftRight = SlimDX.DirectInput.Key.RightShift
+
+        CtrlLeft = SlimDX.DirectInput.Key.LeftControl
+        CtrlRight = SlimDX.DirectInput.Key.RightControl
     End Enum
 
     Public Class InstanceClass

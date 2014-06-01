@@ -39,6 +39,10 @@
             MyBase.OnWake(OldInterfaceName)
 
             Me.BattlezoneAnimation.CurrentFrame = 0
+
+            If (HellionEngine.Sound.Singleton.CurrentMusicFile <> "Music/Menu.wav") Then
+                HellionEngine.Sound.Singleton.PlayMusic("Music/Menu.wav", True)
+            End If
         End Sub
 
         Private Sub ButtonArcade_Clicked()

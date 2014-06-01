@@ -15,7 +15,7 @@
             Dim CCAButton As New HellionEngine.Game.Button("Textures/Buttons/Russia_Up.png", "Textures/Buttons/Russia_Up.png", "Textures/Buttons/Russia_Moused.png")
             CCAButton.Position = New HellionEngine.Support.Vector(747, 95)
             CCAButton.Scale = New HellionEngine.Support.Vector(1.4, 1.21)
-            '   AddHandler CCAButton.OnClicked, AddressOf Me.ButtonCCA_Clicked
+            AddHandler CCAButton.OnClicked, AddressOf Me.ButtonCCA_Clicked
             AddHandler CCAButton.MousedOver, AddressOf Me.ButtonCCA_MouseOver
             Me.RenderLayerSystem.Append(2, CCAButton)
             Me.UpdateObjectList.Append(CCAButton)
@@ -23,7 +23,7 @@
             Dim NSAButton As New HellionEngine.Game.Button("Textures/Buttons/America_Up.png", "Textures/Buttons/America_Up.png", "Textures/Buttons/America_Moused.png")
             NSAButton.Position = New HellionEngine.Support.Vector(103, 95)
             NSAButton.Scale = New HellionEngine.Support.Vector(1.4, 1.21)
-            '   AddHandler NSAButton.OnClicked, AddressOf Me.ButtonNSA_Clicked
+            AddHandler NSAButton.OnClicked, AddressOf Me.ButtonNSA_Clicked
             AddHandler NSAButton.MousedOver, AddressOf Me.ButtonNSA_MouseOver
             Me.RenderLayerSystem.Append(2, NSAButton)
             Me.UpdateObjectList.Append(NSAButton)
@@ -65,13 +65,27 @@
             Me.NSAAnimation.Visible = False
         End Sub
 
-        Public Sub ButtonNSA_MouseOver()
+        Private Sub ButtonNSA_MouseOver()
             If (Not Me.NSAAnimation.Visible) Then
                 Me.NSAAnimation.CurrentFrame = 0
             End If
 
             Me.CCAAnimation.Visible = False
             Me.NSAAnimation.Visible = True
+        End Sub
+
+        Private Sub ButtonCCA_Clicked()
+            PlayUI.Game = New Battlezone.GameModes.BZGame(PlayUI, "Textures/Map/Moon.png", True)
+            PlayUI.Game.InitializeGame()
+
+            Battlezone.InterfaceSystem.ActiveInterfaceName = "Play"
+        End Sub
+
+        Private Sub ButtonNSA_Clicked()
+            PlayUI.Game = New Battlezone.GameModes.BZGame(PlayUI, "Textures/Map/Moon.png", False)
+            PlayUI.Game.InitializeGame()
+
+            Battlezone.InterfaceSystem.ActiveInterfaceName = "Play"
         End Sub
     End Class
 End Namespace

@@ -24,9 +24,9 @@
             Me.BackgroundImage.Color.Alpha = 0
 
             Me.StartImage = New HellionEngine.Game.Sprite("Textures/Interface/Enter.png")
+            Me.StartImage.Visible = False
             Me.StartImage.Position = New HellionEngine.Support.Vector(400, 650)
             Me.StartImage.Scale = New HellionEngine.Support.Vector(0.25, 0.25)
-            Me.StartImage.Visible = False
             Me.RenderLayerSystem.Append(1, Me.StartImage)
         End Sub
 
@@ -37,8 +37,11 @@
 
             ' BattleZone.Game.Globals.Core.Application.PreloadResources()
 
-            Me.StartImage.Visible = True
             Me.StartImage.Color.Alpha = 0
+        End Sub
+
+        Public Overrides Sub OnSleep(NewInterfaceName As String)
+            MyBase.OnSleep(NewInterfaceName)
         End Sub
 
         Public Overrides Sub OnKeyPressed(Key As HellionEngine.Input.Key)
@@ -57,8 +60,10 @@
 
                 If (Me.BackgroundImage.Color.Alpha >= 240) Then
                     Me.BackgroundImage.Color.Alpha = 255
+                    Me.StartImage.Visible = True
                 Else
                     Me.BackgroundImage.Color.Alpha += 100 * DeltaTimeSeconds
+                    Me.StartImage.Visible = False
                 End If
             End If
 

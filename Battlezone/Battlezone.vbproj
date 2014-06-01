@@ -62,12 +62,24 @@
     <Folder Include="My Project\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\GameModes.vb" />
     <Compile Include="Code\InterfaceSystem.vb" />
+    <Compile Include="Code\Interfaces\Death.vb" />
+    <Compile Include="Code\Interfaces\Escape.vb" />
     <Compile Include="Code\Interfaces\Logo.vb" />
     <Compile Include="Code\Interfaces\Main.vb" />
+    <Compile Include="Code\Interfaces\Play.vb" />
     <Compile Include="Code\Interfaces\SelectFaction.vb" />
     <Compile Include="Code\Interfaces\Start.vb" />
+    <Compile Include="Code\Keymap.vb" />
     <Compile Include="Code\Main.vb" />
+    <Compile Include="Code\Tanks\AI.vb" />
+    <Compile Include="Code\Tanks\BDog\Grizzly.vb" />
+    <Compile Include="Code\Tanks\BDog\Razor.vb" />
+    <Compile Include="Code\Tanks\CCA\Flanker.vb" />
+    <Compile Include="Code\Tanks\CCA\Czar.vb" />
+    <Compile Include="Code\Weapons\Chaingun.vb" />
+    <Compile Include="Code\Weapons\SPStabber.vb" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HellionEngine, Version=0.0.0.0, Culture=neutral">

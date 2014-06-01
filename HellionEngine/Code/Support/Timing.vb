@@ -42,7 +42,7 @@ Namespace Support
 
             Public Sub Fire()
                 If (Not Me.InternalRecurring) Then
-                    TimedEvents.RemoveObject(Me)
+                    TimedEvents.RemoveObject(Me.InternalID)
                 End If
 
                 Me.InternalNextFireTimeSeconds = InternalSimTimeSeconds + Me.InternalDelaySeconds

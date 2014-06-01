@@ -55,7 +55,7 @@ Namespace Support
             End Get
         End Property
 
-        Public Sub IterationBegin(Backwards As Boolean)
+        Public Sub IterationBegin(Optional Backwards As Boolean = False)
             If (Not Backwards) Then
                 Me.CurrentIterationIndex = 0
             Else
@@ -90,11 +90,12 @@ Namespace Support
                 Return Nothing
             End If
 
-            Dim Result As Object = Me.InternalArray(Me.CurrentIterationIndex)
-            Me.CurrentIterationIndex += 1
             If (Me.CurrentIterationIndex >= Me.InternalArray.Length - 1) Then
                 Me.IsIterating = False
             End If
+
+            Dim Result As Object = Me.InternalArray(Me.CurrentIterationIndex)
+            Me.CurrentIterationIndex += 1
 
             Return Result
         End Function

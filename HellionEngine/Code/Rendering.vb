@@ -10,6 +10,11 @@ Public Module Rendering
     Private SingletonInstance As ClassInstance
     Public DeviceInstance As SlimDX.Direct3D9.Device
 
+    Public CameraPosition As HellionEngine.Support.Vector = New HellionEngine.Support.Vector(0, 0)
+    Public CameraScale As HellionEngine.Support.Vector = New HellionEngine.Support.Vector(1, 1)
+    Public CameraRotationCenter As HellionEngine.Support.Vector = New HellionEngine.Support.Vector(0, 0)
+    Public CameraRotation As HellionEngine.Support.Rotation = New HellionEngine.Support.Rotation
+
     Public ReadOnly Property Singleton() As ClassInstance
         Get
             Return SingletonInstance
@@ -30,7 +35,7 @@ Public Module Rendering
 
         Public LayeringSystem As RenderLayerSystem
 
-        Private LoadedTextures As HellionEngine.Support.DynamicArray
+        Public LoadedTextures As HellionEngine.Support.DynamicArray
 
         Private InternalDisposed As Boolean
 
@@ -139,35 +144,72 @@ Public Module Rendering
 
             Me.InternalIsGood = False
             Me.RenderTexture.Dispose()
+
+            REM Remove us from the texture list
+            REM This is really just a quick hack work around ingame textures becoming unloaded after exiting game
+            SingletonInstance.LoadedTextures.RemoveObject(Me)
         End Sub
     End Class
 
     Public NotInheritable Class RenderLayerSystem
         Inherits HellionEngine.Core.EngineObject
 
+        Public HasWorldRender As Boolean = False
+
         Private InternalLayerSystem As HellionEngine.Support.DynamicArray
+        Private LayerCount As Integer
 
         Public Sub New(LayerCount As Integer)
             MyBase.New()
 
-            Me.InternalLayerSystem = New HellionEngine.Support.DynamicArray(0)
+            Me.LayerCount = LayerCount
 
-            For CurrentIteration As Integer = 0 To LayerCount - 1
+            Me.Empty()
+        End Sub
+
+        Public Sub Empty()
+            If (Not (Me.InternalLayerSystem Is Nothing)) Then
+                Me.InternalLayerSystem.Dispose()
+            End If
+
+            Me.InternalLayerSystem = New HellionEngine.Support.DynamicArray(0)
+            For CurrentIteration As Integer = 0 To Me.LayerCount - 1
                 Me.InternalLayerSystem.Append(New HellionEngine.Support.DynamicArray(0))
+            Next
+        End Sub
+
+        Public Sub RemoveObject(Target As Object)
+            For CurrentIteration As Integer = 0 To Me.LayerCount - 1
+                Me.InternalLayerSystem.GetIndex(CurrentIteration).RemoveObject(Target)
             Next
         End Sub
 
         Public Overrides Sub OnDraw()
             MyBase.OnDraw()
 
+            REM Guarantee our view matrix isn't modified
+            DeviceInstance.SetTransform(SlimDX.Direct3D9.TransformState.View, SlimDX.Matrix.Identity)
+            DeviceInstance.SetTransform(SlimDX.Direct3D9.TransformState.World, SlimDX.Matrix.Identity)
+
+            Dim CurrentLayerID As Integer = 0
+            Dim HitWorldLayer As Boolean = False
             Me.InternalLayerSystem.IterationBegin(False)
             While (Not Me.InternalLayerSystem.IterationEnd())
+                If (Me.HasWorldRender = True And CurrentLayerID > (Me.InternalLayerSystem.Length / 2) - 1 And HitWorldLayer = False) Then
+                    HitWorldLayer = True
+
+                    REM Set camera information
+                    DeviceInstance.SetTransform(SlimDX.Direct3D9.TransformState.View, SlimDX.Matrix.Transformation2D(New SlimDX.Vector2(0, 0), 0, CameraScale.SlimDX, CameraRotationCenter.SlimDX, CameraRotation.Radians, CameraPosition.SlimDX))
+                End If
+
                 Dim CurrentArray As HellionEngine.Support.DynamicArray = Me.InternalLayerSystem.IterationNext()
 
                 CurrentArray.IterationBegin(False)
                 While (Not CurrentArray.IterationEnd())
                     CurrentArray.IterationNext().OnDraw()
                 End While
+
+                CurrentLayerID += 1
             End While
         End Sub
 

@@ -17,13 +17,13 @@ Namespace Support
 			Return Rnd() * Maximum + Minimum
 		End Function
 
-		Public Function RandomVectorInRadius(Position As SlimDX.Vector2, MinimumRadius As Single, MaximumRadius As Single) As SlimDX.Vector2
-			Dim Angle As Single = RandomSingle(0, (2 * Math.PI))
-			Return New SlimDX.Vector2(Position.X + (Math.Cos(Angle) * MaximumRadius) + MinimumRadius, Position.Y + (Math.Sin(Angle) * MaximumRadius) + MinimumRadius)
-		End Function
+        Public Function RandomVectorInRadius(Position As HellionEngine.Support.Vector, MinimumRadius As Single, MaximumRadius As Single) As HellionEngine.Support.Vector
+            Dim Angle As Single = RandomSingle(0, (2 * Math.PI))
+            Return New HellionEngine.Support.Vector(Position.X + (Math.Cos(Angle) * MaximumRadius) + MinimumRadius, Position.Y + (Math.Sin(Angle) * MaximumRadius) + MinimumRadius)
+        End Function
 
-		Public Function RandomVectorInRectangle(Rectangle As System.Drawing.Rectangle) As SlimDX.Vector2
-			Return New SlimDX.Vector2(RandomSingle(Rectangle.Left, Rectangle.Right), RandomSingle(Rectangle.Top, Rectangle.Bottom))
-		End Function
+        Public Function RandomVectorInRectangle(Rectangle As System.Drawing.Rectangle) As HellionEngine.Support.Vector
+            Return New HellionEngine.Support.Vector(RandomSingle(Rectangle.Left, Rectangle.Right), RandomSingle(Rectangle.Top, Rectangle.Bottom))
+        End Function
    End Module
 End Namespace

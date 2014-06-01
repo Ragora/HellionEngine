@@ -10,14 +10,12 @@
 
             Me.InternalSprite = New SlimDX.Direct3D9.Sprite(HellionEngine.Rendering.DeviceInstance)
             Me.InternalTexture = HellionEngine.Rendering.Singleton.GetTexture(Filepath)
-
-            Me.Visible = True
         End Sub
 
         Public Overrides Sub OnDraw()
             MyBase.OnDraw()
 
-            If (Not Me.Visible) Then
+            If (Not Me.Visible Or Me.Disposed() Or Me.InternalSprite.Disposed()) Then
                 Return
             End If
 
